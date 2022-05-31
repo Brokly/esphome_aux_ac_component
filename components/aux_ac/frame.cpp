@@ -2,7 +2,7 @@
 
 namespace esphome {
 namespace aux_ac {
-
+/*
         void _debugMsg(const String &msg, uint8_t dbgLevel = ESPHOME_LOG_LEVEL_DEBUG, unsigned int line = 0, ... ){
             if (dbgLevel < ESPHOME_LOG_LEVEL_NONE) dbgLevel = ESPHOME_LOG_LEVEL_NONE;
             if (dbgLevel > ESPHOME_LOG_LEVEL_VERY_VERBOSE) dbgLevel = ESPHOME_LOG_LEVEL_VERY_VERBOSE;
@@ -31,13 +31,16 @@ namespace aux_ac {
         }
 
 
-// загружает фрейм из стрима (UART)
+// загружает фрейм из UART
 // все данные до стартового байта пропускает
-bool Frame::load_from_stream(Stream *stream) {
-    if (stream == nullptr) return false;
+bool Frame::load_from_stream(esphome::uart::UARTComponent *serial) {
+    // ***********************************************************************
+    // тут всё надо переписывать!
+    // ***********************************************************************
+    if (serial == nullptr) return false;
 
     while (stream->available()) {
-        const uint8_t data = stream->read();
+        const uint8_t data = serial->read();
         const uint8_t length = this->data_.size();
         if (length == OFFSET_START_BYTE && data != AC_PACKET_START_BYTE) {
             // какой-то левый байт
@@ -56,7 +59,7 @@ bool Frame::load_from_stream(Stream *stream) {
     }
     return false;
 }
-
+*/
 
 
 /*
