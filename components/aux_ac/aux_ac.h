@@ -2,15 +2,11 @@
 // Source code and detailed instructions are available on github: https://github.com/GrKoR/esphome_aux_ac_component
 
 #pragma once
+/*
 #include <Arduino.h>
-#include "esphome.h"
 #include <stdarg.h>
-#include "esphome/core/component.h"
-#include "esphome/components/climate/climate.h"
-#include "esphome/components/uart/uart.h"
-#include "esphome/components/sensor/sensor.h"
-#include "esphome/components/binary_sensor/binary_sensor.h"
-#include "esphome/core/helpers.h"
+*/
+#include "esphome.h"
 #include "frame.h"
 #include "frames.h"
 
@@ -22,7 +18,15 @@ namespace aux_ac {
 class AirCon : public esphome::Component, public esphome::climate::Climate {
     public:
     protected:
+        esphome::climate::ClimateTraits traits() override {
+            auto traits = climate::ClimateTraits();
+            return traits;
+        };
+        void control(const esphome::climate::ClimateCall &call) override {};
     private:
+        Frame frame = {0xBB, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00};
+        PingFrame pframe = {0xBB, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00};
+        PingFrame notpframe= {0xBB, 0x00, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00};
 };
 
 } // aux_ac

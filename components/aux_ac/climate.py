@@ -41,7 +41,7 @@ AUTO_LOAD = ["sensor", "binary_sensor"]
 
 aux_ac_ns = cg.esphome_ns.namespace("aux_ac")
 AirCon = aux_ac_ns.class_("AirCon", climate.Climate, cg.Component)
-Capabilities = aux_ac_ns.namespace("Constants")
+#Capabilities = aux_ac_ns.namespace("Constants")
 
 def output_info(config):
     """_LOGGER.info(config)"""

@@ -1,9 +1,12 @@
 #pragma once
-#include <Arduino.h>
 #include <vector>
+#include <stdint.h>
+#include <Arduino.h>
+/*
 #include "esphome.h"
 #include "esphome/components/uart/uart.h"
 #include "esphome/core/log.h"
+*/
 
 namespace esphome {
 namespace aux_ac {
@@ -63,13 +66,13 @@ class Frame {
         //      - добавляет из вектора
 
         // методы работы с байтами
-        uint8_t get_byte(uint8_t offset) { return this->decode_byte_uint8(offset, 0xFF); };  // 
-        bool has_byte(uint8_t offset, uint8_t value) { return this->get_byte(offset) == value; };  // проверяет соответствие байта
-        uint8_t decode_byte_uint8(uint8_t offset, uint8_t mask = 0xFF) { return this->get_value(offset, mask, 0x00); };  // декодировать байт в цифровое значение (смещение байта, маска)
+        uint8_t get_byte(uint8_t offset) const { return this->decode_byte_uint8(offset, 0xFF); };  // 
+        bool has_byte (uint8_t offset, uint8_t value) const { return this->get_byte(offset) == value; };  // проверяет соответствие байта
+        uint8_t decode_byte_uint8(uint8_t offset, uint8_t mask = 0xFF) const { return this->get_value(offset, mask, 0x00); };  // декодировать байт в цифровое значение (смещение байта, маска)
         // установить значение в байте (смещение, маска, значение)
 
         // методы работы с булевыми значениями
-        bool decode_byte_bool(uint8_t offset, uint8_t mask = 0xFF) { return false; }; // декодировать байт в булево значение (смещение байта, маска на 1 бит)
+        bool decode_byte_bool(uint8_t offset, uint8_t mask = 0xFF) const { return false; }; // декодировать байт в булево значение (смещение байта, маска на 1 бит)
         // установить бит в байте (смещение, маска, булево значение)
 
         // проверка фрейма на корректность (наследуемая функция):
@@ -80,7 +83,7 @@ class Frame {
         // установить маску фрейма (какие байты/биты значимы для проверки)
         // прочитать маску фрейма (какие байты/биты значимы для проверки)
 
-        virtual String toString() const {};    // конвертирует фрейм в строку, классами-наследниками может перегружаться
+        virtual String toString() const { return ""; };    // конвертирует фрейм в строку, классами-наследниками может перегружаться
     protected:
         // константы
         static const uint8_t AC_PACKET_START_BYTE = 0xBB;
@@ -98,7 +101,7 @@ class Frame {
         FrameDirection frame_dir_ = FDIR_UNKNOWN;
         void set_frame_direction_(FrameDirection _frame_dir) { frame_dir_ = _frame_dir; };    // присваиваем направление фрейма, через функцию, т.к. возможно позже понадобится что-то менять
         // загружает направление фрейма из его заголовка (некоторые типы фреймов могут быть только входящими или только исходящими)
-        virtual bool parse_frame_direction_from_header();
+        virtual bool parse_frame_direction_from_header() { return false; };
 
         FrameState frame_state_ = FSTATE_EMPTY;
         uint8_t bytes_loaded_ = 0;
