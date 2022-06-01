@@ -4,7 +4,6 @@
 #include "esphome.h"
 #include "esphome/components/uart/uart.h"
 #include "esphome/core/log.h"
-#include "frame_parts.h"
 
 namespace esphome {
 namespace aux_ac {

@@ -37,7 +37,7 @@ _LOGGER = logging.getLogger(__name__)
 
 CODEOWNERS = ["@GrKoR"]
 DEPENDENCIES = ["climate", "uart"]
-
+AUTO_LOAD = ["sensor", "binary_sensor"]
 
 aux_ac_ns = cg.esphome_ns.namespace("aux_ac")
 AirCon = aux_ac_ns.class_("AirCon", climate.Climate, cg.Component)
